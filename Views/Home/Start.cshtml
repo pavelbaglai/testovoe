@@ -1,0 +1,36 @@
+﻿
+@model WebApplication39.Models.KatalogListViewModel
+
+
+@{
+    ViewBag.Title = "ПО «Каталог продуктов»";
+}
+
+
+<h2>ПО «Каталог продуктов»</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login">Вход</a>
+    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>Наименование продукта</th>
+        <th>Категория</th>
+        <th>Описание</th>
+        <th>Стоимость в рублях</th>
+        <th>Примечание общее</th>
+        <th>Примечание специальное</th>
+    </tr>
+
+
+</table>

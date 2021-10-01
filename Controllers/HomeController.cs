@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using WebApplication39.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
-namespace FilterApp.Controllers
+namespace WebApplication39.Controllers
 {
     public class HomeController : Controller
     {
@@ -33,6 +35,11 @@ namespace FilterApp.Controllers
                 db.SaveChanges();
             }
         }
+        public IActionResult Start()
+        {
+            return View();
+        }
+        [Authorize(Roles = "moderator  , user , admin ")]
         public ActionResult Index(int? сategory, string name)
         {
             IQueryable<Katalog> katalogs = db.Katalogs.Include(p => p.Category);
@@ -49,7 +56,7 @@ namespace FilterApp.Controllers
             // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { Name = "Все", Id = 0 });
 
-            UserListViewModel viewModel = new UserListViewModel
+            KatalogListViewModel viewModel = new KatalogListViewModel
             {
                 Katalogs = katalogs.ToList(),
                 Categories = new SelectList(categories, "Id", "Name"),
@@ -57,10 +64,12 @@ namespace FilterApp.Controllers
             };
             return View(viewModel);
         }
+        [Authorize(Roles = "moderator")]
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize(Roles = "moderator")]
         [HttpPost]
         public async Task<IActionResult> Create(Katalog katalog)
         {
@@ -68,6 +77,7 @@ namespace FilterApp.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "moderator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)
@@ -78,6 +88,7 @@ namespace FilterApp.Controllers
             }
             return NotFound();
         }
+        [Authorize(Roles = "moderator")]
         [HttpPost]
         public async Task<IActionResult> Edit(Katalog user)
         {
@@ -85,6 +96,7 @@ namespace FilterApp.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "moderator")]
         [HttpGet]
         [ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(int? id)
@@ -97,7 +109,7 @@ namespace FilterApp.Controllers
             }
             return NotFound();
         }
-
+        [Authorize(Roles = "moderator")]
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {

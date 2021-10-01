@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication39.Models
 {
-    public class UserListViewModel
+    public class KatalogListViewModel
     {
         public IEnumerable<Katalog> Katalogs { get; set; }
         public SelectList Categories { get; set; }

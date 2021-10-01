@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication39.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 namespace WebApplication39
@@ -26,8 +27,14 @@ namespace WebApplication39
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = "Server=(localdb)\\mssqllocaldb; Database=katalogdb; Trusted_Connection=true;";
+            string connection = "Server=(localdb)\\mssqllocaldb; Database=katalogdb255; Trusted_Connection=true;";
             services.AddDbContext<KatalogsContext>(options => options.UseSqlServer(connection));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
             services.AddControllersWithViews();
         }
 
@@ -49,14 +56,15 @@ namespace WebApplication39
 
             app.UseRouting();
 
+           app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+                    pattern: "{controller=Home}/{action=Start}/{id?}");
+        });
         }
     }
 }
