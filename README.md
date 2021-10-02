@@ -1,6 +1,9 @@
 # testovoe
  ПО «Каталог продуктов»
- ![img](https://github.com/pavelbaglai/testovoe/blob/main/244424555.PNG)
+ 
+  ![img](https://github.com/pavelbaglai/testovoe/blob/main/888.PNG)
+ ![img](https://github.com/pavelbaglai/testovoe/blob/main/777.PNG)
+ ![img](https://github.com/pavelbaglai/testovoe/blob/main/666.PNG)
 Общие требования
 1.	Необходимо разработать каталог продуктов согласно таблице.
 Наименование продукта	  Категория	Описание	        Стоимость в рублях	    Примечание общее	   Примечание специальное
