@@ -24,7 +24,7 @@ namespace WebApplication39.Controllers
             {
                 Category Еда = new Category { Name = "Еда" };
                 Category Вкусности = new Category { Name = "Вкусности" };
-                Category Вода = new Category { Name = "Вода" };
+                 Category Вода = new Category { Name = "Вода" };
 
 
                 Katalog user1 = new Katalog { Name = "Селедка", Category = Еда, Opisanie = "Селедка соленая", Shena = 10000, PrimO = "Акция", PrimS = "Пересоленая" };
@@ -39,7 +39,7 @@ namespace WebApplication39.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "moderator  , user , admin ")]
+        [Authorize(Roles = "moderator  , user")]
         public ActionResult Index(int? сategory, string name)
         {
             IQueryable<Katalog> katalogs = db.Katalogs.Include(p => p.Category);
@@ -67,8 +67,12 @@ namespace WebApplication39.Controllers
         [Authorize(Roles = "moderator")]
         public IActionResult Create()
         {
-            return View();
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.TourCate = new SelectList(categories, "Id", "Name");
+           
+            return View(); 
         }
+     
         [Authorize(Roles = "moderator")]
         [HttpPost]
         public async Task<IActionResult> Create(Katalog katalog)
@@ -77,9 +81,13 @@ namespace WebApplication39.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "moderator")]
+
+    [Authorize(Roles = "moderator")]
         public async Task<IActionResult> Edit(int? id)
         {
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.TourCate = new SelectList(categories, "Id", "Name");
+
             if (id != null)
             {
                 Katalog user = await db.Katalogs.FirstOrDefaultAsync(p => p.Id == id);
@@ -88,7 +96,7 @@ namespace WebApplication39.Controllers
             }
             return NotFound();
         }
-        [Authorize(Roles = "moderator")]
+        [Authorize(Roles = "moderator ")]
         [HttpPost]
         public async Task<IActionResult> Edit(Katalog user)
         {

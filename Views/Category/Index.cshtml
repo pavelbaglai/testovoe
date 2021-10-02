@@ -3,14 +3,6 @@
 @{
     ViewBag.Title = "Все пользователи";
 }
-
-<table class="table">
-    <tr><td>Имя</td></tr>
-    @foreach (var item in Model)
-    {
-        <tr><td>@item.Name</td></tr>
-    }
-</table>
 @if (User.Identity.IsAuthenticated)
 {
     <p>@User.Identity.Name</p>
@@ -19,7 +11,11 @@
         <input type="submit" value="Выход" />
     </form>
 }
-else
-{
- 
-}
+<a asp-action="Create">Добавить </a>
+<table class="table">
+    <tr><td>Имя</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.Name</td></tr>
+    }
+</table>

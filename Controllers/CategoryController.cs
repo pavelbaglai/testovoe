@@ -10,9 +10,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
+
 
 namespace WebApplication39.Controllers
 {
+    
     public class CategoryController : Controller
     {
         private KatalogsContext db;
@@ -20,10 +25,24 @@ namespace WebApplication39.Controllers
         {
             db = context;
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
+
         {
             return View(await db.Categories.ToListAsync());
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Category category)
+        {
+            db.Categories.Add(category);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
+

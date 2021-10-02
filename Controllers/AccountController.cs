@@ -42,8 +42,9 @@ namespace WebApplication39.Controllers
                     await _context.SaveChangesAsync();
 
                     await Authenticate(user); // аутентификация
-
-                    return RedirectToAction("Index", "Home");
+                    if (user.Role.Name == "admin") return RedirectToAction("Index", "Category");
+                    if (user.Role.Name == "moderator") return RedirectToAction("Index", "Home");
+                    if (user.Role.Name == "user") return RedirectToAction("Index", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
@@ -67,8 +68,10 @@ namespace WebApplication39.Controllers
                 if (user != null)
                 {
                     await Authenticate(user); // аутентификация
+                    if (user.Role.Name == "admin") return RedirectToAction("Index", "Category");
+                    if (user.Role.Name == "moderator") return RedirectToAction("Index", "Home");
+                    if (user.Role.Name == "user") return RedirectToAction("Index", "Home");
 
-                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
