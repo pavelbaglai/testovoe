@@ -1,0 +1,36 @@
+﻿@model WebApplication39.Models.Katalog
+
+@{
+    ViewBag.Title = "Редактирование";
+}
+<h1>Редактирование</h1>
+
+<form asp-action="create" asp-controller="home">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Наименование продукта</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Category.Name" class="control-label">Категория</label>
+        <select asp-for="CategoryId" asp-items=" ViewBag.Category"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Opisanie" class="control-label">Описание</label>
+        <input type="text" asp-for="Opisanie" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Shena" class="control-label">Стоимость в рублях</label>
+        <input type="number" asp-for="Shena" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PrimO" class="control-label">Примечание общее</label>
+        <input type="text" asp-for="PrimO" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PrimS" class="control-label">Примечание специальное</label>
+        <input type="text" asp-for="PrimS" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>
