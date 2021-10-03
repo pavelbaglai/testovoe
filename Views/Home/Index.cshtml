@@ -67,7 +67,17 @@ else
 }
 @if (User.IsInRole("user"))
 {
+ <form method="get">
+        <div class="form-inline form-group">
+            <label class="control-label">Наименование продукта: </label>
+            <input name="name" class="form-control" />
 
+            <label class="control-label">Категория: </label>
+            <select name="сategory" asp-items="Model.Categories" class="form-control"></select>
+
+            <input type="submit" value="Фильтр" class="btn btn-default" />
+        </div>
+    </form>
     <table class="table table-striped">
         <tr>
             <th>Наименование продукта</th>
