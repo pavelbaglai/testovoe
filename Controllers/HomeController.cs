@@ -62,15 +62,21 @@ namespace WebApplication39.Controllers
                 Categories = new SelectList(categories, "Id", "Name"),
                 Name = name
             };
+
             return View(viewModel);
         }
+    
         [Authorize(Roles = "moderator")]
         public IActionResult Create()
         {
-            List<Category> categories = db.Categories.ToList();
-            ViewBag.TourCate = new SelectList(categories, "Id", "Name");
-           
-            return View(); 
+            //List<Category> categories = db.Categories.ToList();
+            // ViewBag.TourCate = new SelectList(categories, "Id", "Name");
+            // SelectList category = new SelectList(db.Categories, "Id", "Name");
+            // ViewBag.Category = category;
+           ViewData["Category"] = new SelectList(db.Categories, "Id", "Name");
+
+            return View();
+            
         }
      
         [Authorize(Roles = "moderator")]
@@ -82,25 +88,25 @@ namespace WebApplication39.Controllers
             return RedirectToAction("Index");
         }
 
-    [Authorize(Roles = "moderator")]
+        [Authorize(Roles = "moderator")]
         public async Task<IActionResult> Edit(int? id)
         {
-            List<Category> categories = db.Categories.ToList();
-            ViewBag.TourCate = new SelectList(categories, "Id", "Name");
-
+            ViewData["Category"] = new SelectList(db.Categories, "Id", "Name");
             if (id != null)
             {
-                Katalog user = await db.Katalogs.FirstOrDefaultAsync(p => p.Id == id);
-                if (user != null)
-                    return View(user);
+                Katalog katalog = await db.Katalogs.FirstOrDefaultAsync(p => p.Id == id);
+                if (katalog != null)
+                    return View(katalog);
+                ViewData["Category"] = new SelectList(db.Categories, "Id", "Name", katalog.CategoryId);
             }
             return NotFound();
         }
-        [Authorize(Roles = "moderator ")]
+
+        [Authorize(Roles = "moderator")]
         [HttpPost]
-        public async Task<IActionResult> Edit(Katalog user)
+        public async Task<IActionResult> Edit(Katalog katalog)
         {
-            db.Katalogs.Update(user);
+            db.Katalogs.Update(katalog);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

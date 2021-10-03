@@ -17,7 +17,7 @@ using System.Data;
 
 namespace WebApplication39.Controllers
 {
-    
+    [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
         private KatalogsContext db;
@@ -42,7 +42,51 @@ namespace WebApplication39.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id != null)
+            {
+                Category category = await db.Categories.FirstOrDefaultAsync(p => p.Id == id);
+                if (category != null)
+                    return View(category);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Category category)
+        {
+            db.Categories.Update(category);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<IActionResult> ConfirmDelete(int? id)
+        {
+            if (id != null)
+            {
+                Category category = await db.Categories.FirstOrDefaultAsync(p => p.Id == id);
+                if (category != null)
+                    return View(category);
+            }
+            return NotFound();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                Category category = await db.Categories.FirstOrDefaultAsync(p => p.Id == id);
+                if (category != null)
+                {
+                    db.Categories.Remove(category);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
     }
 }
 

@@ -155,3 +155,5 @@ C:\Users\pas-b\source\repos\WebApplication39\WebApplication39\obj\Debug\netcorea
 C:\Users\pas-b\source\repos\WebApplication39\WebApplication39\obj\Debug\netcoreapp3.1\Razor\Views\Home\Start.cshtml.g.cs
 C:\Users\pas-b\source\repos\WebApplication39\WebApplication39\obj\Debug\netcoreapp3.1\Razor\Views\Category\Index.cshtml.g.cs
 C:\Users\pas-b\source\repos\WebApplication39\WebApplication39\obj\Debug\netcoreapp3.1\Razor\Views\Category\Create.cshtml.g.cs
+C:\Users\pas-b\source\repos\WebApplication39\WebApplication39\obj\Debug\netcoreapp3.1\Razor\Views\Category\Edit.cshtml.g.cs
+C:\Users\pas-b\source\repos\WebApplication39\WebApplication39\obj\Debug\netcoreapp3.1\Razor\Views\Category\Delete.cshtml.g.cs
