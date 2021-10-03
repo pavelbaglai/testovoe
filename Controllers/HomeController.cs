@@ -91,10 +91,8 @@ namespace WebApplication39.Controllers
         [Authorize(Roles = "moderator")]
         public async Task<IActionResult> Edit(int? id)
         {
-<<<<<<< HEAD
             //ViewData["Category"] = new SelectList(db.Categories, "Id", "Name");
-=======
->>>>>>> 6b233db5d89533ff86342ecde119bb0013ed3b6a
+
             if (id != null)
             {
                 Katalog katalog = await db.Katalogs.FirstOrDefaultAsync(p => p.Id == id);
