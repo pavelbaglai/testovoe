@@ -91,15 +91,17 @@ namespace WebApplication39.Controllers
         [Authorize(Roles = "moderator")]
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewData["Category"] = new SelectList(db.Categories, "Id", "Name");
+            //ViewData["Category"] = new SelectList(db.Categories, "Id", "Name");
             if (id != null)
             {
                 Katalog katalog = await db.Katalogs.FirstOrDefaultAsync(p => p.Id == id);
                 if (katalog != null)
-                    return View(katalog);
-                ViewData["Category"] = new SelectList(db.Categories, "Id", "Name", katalog.CategoryId);
+                    ViewData["Category"] = new SelectList(db.Categories, "Id", "Name", katalog.CategoryId);
+
+                return View(katalog);
             }
             return NotFound();
+ 
         }
 
         [Authorize(Roles = "moderator")]
