@@ -27,12 +27,12 @@ namespace WebApplication39.Models
             string moderatorRoleName = "moderator";
 
             string adminEmail = "admin@mail.ru";
-            string adminPassword = "123456";
+            string adminPassword = "admin";
            
            
 
-            string moderatorEmail = "admin244@mail.ru";
-            string moderatorPassword = "229728";
+            string moderatorEmail = "moderator@mail.ru";
+            string moderatorPassword = "moderator";
 
             // добавляем роли
             Role adminRole = new Role { Id = 1, Name = adminRoleName };

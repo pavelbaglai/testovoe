@@ -35,10 +35,32 @@ namespace WebApplication39.Controllers
                 db.SaveChanges();
             }
         }
-        public IActionResult Start()
+        public IActionResult Start(int? сategory, string name)
         {
-            return View();
+            IQueryable<Katalog> katalogs = db.Katalogs.Include(p => p.Category);
+            if (сategory != null && сategory != 0)
+            {
+                katalogs = katalogs.Where(p => p.CategoryId == сategory);
+            }
+            if (!String.IsNullOrEmpty(name))
+            {
+                katalogs = katalogs.Where(p => p.Name.Contains(name));
+            }
+
+            List<Category> categories = db.Categories.ToList();
+            // устанавливаем начальный элемент, который позволит выбрать всех
+            categories.Insert(0, new Category { Name = "Все", Id = 0 });
+
+            KatalogListViewModel viewModel = new KatalogListViewModel
+            {
+                Katalogs = katalogs.ToList(),
+                Categories = new SelectList(categories, "Id", "Name"),
+                Name = name
+            };
+
+            return View(viewModel);
         }
+    
         [Authorize(Roles = "moderator  , user")]
         public ActionResult Index(int? сategory, string name)
         {

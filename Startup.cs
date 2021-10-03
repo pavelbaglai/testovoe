@@ -27,7 +27,7 @@ namespace WebApplication39
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = "Server=(localdb)\\mssqllocaldb; Database=katalogdb2588; Trusted_Connection=true;";
+            string connection = "Server=(localdb)\\mssqllocaldb; Database=katalogdb25844; Trusted_Connection=true;";
             services.AddDbContext<KatalogsContext>(options => options.UseSqlServer(connection));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

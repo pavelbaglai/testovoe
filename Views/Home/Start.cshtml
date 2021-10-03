@@ -1,6 +1,5 @@
 ﻿
-@model IEnumerable<WebApplication39.Models.Katalog>
-
+@model WebApplication39.Models.KatalogListViewModel
 @{
     ViewBag.Title = "ПО «Каталог продуктов»";
 }
@@ -21,11 +20,39 @@ else
     <a asp-controller="Account" asp-action="Login">Вход</a>
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
 }
+<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Наименование продукта: </label>
+        <input name="name" class="form-control" />
 
+        <label class="control-label">Категория: </label>
+        <select name="сategory" asp-items="Model.Categories" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
 <table class="table table-striped">
     <tr>
-        
+        <th>Наименование продукта</th>
+        <th>Категория</th>
+        <th>Описание</th>
+        <th>Стоимость в рублях</th>
+        <th>Примечание общее</th>
+       
     </tr>
 
-  
+    @foreach (var item in Model.Katalogs)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Category.Name</td>
+            <td>@item.Opisanie</td>
+            <td>@item.Shena</td>
+            <td>@item.PrimO</td>
+            
+
+        </tr>
+    }
 </table>
+
+
